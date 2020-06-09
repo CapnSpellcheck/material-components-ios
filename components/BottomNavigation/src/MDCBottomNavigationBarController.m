@@ -81,27 +81,40 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
 
 @implementation MDCBottomNavigationBarController
 
-- (instancetype)init {
-  self = [super init];
+- (instancetype)initWithCoder:(NSCoder *)coder {
+  self = [super initWithCoder:coder];
   if (self) {
-    _navigationBar = [[MDCBottomNavigationBar alloc] init];
-    _content = [[UIView alloc] init];
-    _selectedIndex = NSNotFound;
-    _dismissingLargeItemView = NO;
-
-    if (@available(iOS 13.0, *)) {
-      _longPressPopUpViewEnabled = NO;
-    } else {
-      _longPressPopUpViewEnabled = YES;
-    }
-
-    [_navigationBar addObserver:self
-                     forKeyPath:NSStringFromSelector(@selector(items))
-                        options:NSKeyValueObservingOptionNew
-                        context:kObservationContext];
+     [self initHelper];
   }
 
   return self;
+}
+   
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)bundleOrNil {
+   self = [super initWithNibName:nibNameOrNil bundle:bundleOrNil];
+   if (self) {
+      [self initHelper];
+   }
+   
+   return self;
+}
+   
+- (void)initHelper {
+  _navigationBar = [[MDCBottomNavigationBar alloc] init];
+  _content = [[UIView alloc] init];
+  _selectedIndex = NSNotFound;
+  _dismissingLargeItemView = NO;
+  
+  if (@available(iOS 13.0, *)) {
+    _longPressPopUpViewEnabled = NO;
+  } else {
+    _longPressPopUpViewEnabled = YES;
+  }
+  
+  [_navigationBar addObserver:self
+                   forKeyPath:NSStringFromSelector(@selector(items))
+                      options:NSKeyValueObservingOptionNew
+                      context:kObservationContext];
 }
 
 - (void)dealloc {
