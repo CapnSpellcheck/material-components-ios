@@ -102,6 +102,7 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
 - (void)initHelper {
   _navigationBar = [[MDCBottomNavigationBar alloc] init];
   _content = [[UIView alloc] init];
+   _content.tag = 1;
   _selectedIndex = NSNotFound;
   _dismissingLargeItemView = NO;
   
@@ -140,13 +141,13 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
   if (@available(iOS 11.0, *)) {
     [super viewSafeAreaInsetsDidChange];
   }
-  [self updateNavigationBarInsets];
+//  [self updateNavigationBarInsets];
 }
 
 - (void)viewDidLayoutSubviews {
   [super viewDidLayoutSubviews];
 
-  [self updateNavigationBarInsets];
+//  [self updateNavigationBarInsets];
 }
 
 - (void)setSelectedViewController:(nullable UIViewController *)selectedViewController {
@@ -527,7 +528,7 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
   [self.view.leftAnchor constraintEqualToAnchor:self.content.leftAnchor].active = YES;
   [self.view.rightAnchor constraintEqualToAnchor:self.content.rightAnchor].active = YES;
   [self.view.topAnchor constraintEqualToAnchor:self.content.topAnchor].active = YES;
-  [self.view.bottomAnchor constraintEqualToAnchor:self.content.bottomAnchor].active = YES;
+  [self.navigationBar.topAnchor constraintEqualToAnchor:self.content.bottomAnchor].active = YES;
 }
 
 /**
