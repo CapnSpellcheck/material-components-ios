@@ -102,7 +102,6 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
 - (void)initHelper {
   _navigationBar = [[MDCBottomNavigationBar alloc] init];
   _content = [[UIView alloc] init];
-   _content.tag = 1;
   _selectedIndex = NSNotFound;
   _dismissingLargeItemView = NO;
   
@@ -162,9 +161,13 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
   }
 
   // Remove current VC and add new one.
+  [self.selectedViewController beginAppearanceTransition:NO animated:NO];
   [self.selectedViewController.view removeFromSuperview];
+  [self.selectedViewController endAppearanceTransition];
+  [selectedViewController beginAppearanceTransition:YES animated:NO];
   [self.content addSubview:selectedViewController.view];
   [self addConstraintsForChildViewControllerView:selectedViewController.view];
+  [selectedViewController endAppearanceTransition];
 
   // Set the iVar and update selected index
   _selectedViewController = selectedViewController;
