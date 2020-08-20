@@ -64,6 +64,8 @@
  */
 @property(nonatomic, assign, nullable) __kindof UIViewController *selectedViewController;
 
+- (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers withSelectedViewController:(UIViewController *)selected;
+
 /**
  The index of the current selected tab item.  When setting this property the value must be in bounds
  of @c viewcontrollers. If no tab item is selected it will be set to NSNotFound.

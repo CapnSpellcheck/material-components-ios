@@ -211,13 +211,17 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
 }
 
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers {
-  [self deselectCurrentItem];
-  [self removeExistingViewControllers];
+   [self setViewControllers:viewControllers withSelectedViewController:viewControllers.firstObject];
+}
 
-  [self addNewChildViewControllers:[viewControllers copy]];
-  self.navigationBar.items = [self tabBarItemsForViewControllers:self.childViewControllers];
-
-  self.selectedViewController = self.childViewControllers.firstObject;
+- (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers withSelectedViewController:(UIViewController *)selected {
+   [self deselectCurrentItem];
+   [self removeExistingViewControllers];
+   
+   [self addNewChildViewControllers:[viewControllers copy]];
+   self.navigationBar.items = [self tabBarItemsForViewControllers:self.childViewControllers];
+   
+   self.selectedViewController = selected;
 }
 
 - (void)setLongPressPopUpViewEnabled:(BOOL)isLongPressPopUpViewEnabled {
