@@ -197,6 +197,9 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
   // Update the selected index value and views.
   _selectedIndex = selectedIndex;
   [self updateViewsForSelectedIndex:selectedIndex];
+   if ([self.navigationBar.delegate respondsToSelector:@selector(bottomNavigationBar:didSelectItem:)]) {
+     [self.navigationBar.delegate bottomNavigationBar:self.navigationBar didSelectItem:self.navigationBar.items[selectedIndex]];
+   }
 }
 
 - (void)addNewChildViewControllers:(NSArray<UIViewController *> *)newChildViewControllers {
